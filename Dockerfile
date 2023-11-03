@@ -1,25 +1,5 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
+# Use an official Apache HTTP Server image as a base image
+FROM httpd:2.4
 
-# Set the working directory to /app
-WORKDIR /app
-
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
-
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Define environment variable
-ENV NAME World
-
-# Copy the Entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-
-RUN chmod +x /entrypoint.sh
-
-# Start the application
-CMD [ "/entrypoint.sh" ]
+# Copy your website content to the container
+COPY ./app/ /usr/local/apache2/htdocs/
